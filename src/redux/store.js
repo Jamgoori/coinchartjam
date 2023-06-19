@@ -1,6 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
+import counterReducer from './Slice.js'
 
-export default configureStore({
+const store = configureStore({
   reducer: {
+    chartView: counterReducer,
   },
 });
+
+export default store;
