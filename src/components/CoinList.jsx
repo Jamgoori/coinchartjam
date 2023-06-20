@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { useDataFetching } from "../axios/useDataFetching";
 import CoinChart from "./CoinChart";
 
@@ -16,17 +16,28 @@ const CoinList = () => {
     "https://api.upbit.com/v1/candles/weeks?market=KRW-BTC&count=1",
     "https://api.upbit.com/v1/candles/months?market=KRW-BTC&count=1"
   );
-
+  const [selectedCoin, setSelectedCoin] = useState(null);
+  const handleCoinClick = (coin) => {
+    setSelectedCoin(coin);
+  };
   return (
     <div>
-      {coinName.map((coin, index) => (
-        <div key={index}>
-          {coin.market}: {coin.korean_name} - {coin.english_name}
-          <CoinChart/>
-        </div>
-
-      ))}
-
+      {coinName
+        .filter((coin) => coin.market.includes("KRW"))
+        .map((coin, index) => (
+          <div key={index}  onClick={() => handleCoinClick(coin)} className="click">
+            {coin.korean_name} - {coin.english_name}
+            {selectedCoin === coin && (
+              <CoinChart
+              coinName={coinName}
+              minCandleData={minCandleData}
+              dayCandleData={dayCandleData}
+              weekCandleData={weekCandleData}
+              monthCandleData={monthCandleData}
+              />
+            )}      
+          </div>
+        ))}
     </div>
   );
 };

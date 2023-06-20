@@ -1,9 +1,13 @@
-import React from 'react'
+import React from 'react';
+import { useDataFetching } from "../axios/useDataFetching";
 
-const CoinChart = () => {
+const CoinChart = ({ coinName }) => {
+
+  console.log(coinName[1].market);
+
   return (
     <div>CoinChart</div>
-  )
-}
+  );
+};
 
-export default CoinChart
+export default CoinChart;
